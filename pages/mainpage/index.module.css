@@ -1,0 +1,73 @@
+.container {
+    width: 100vw;
+    display: flex;
+    background: #000;
+}
+
+.leftBox {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3px;
+    padding: 50px 20px;
+    width: 20%;
+    height: 100%;
+    position: sticky;
+    left: 0;
+    top: 0;
+}
+
+.leftBoxTitle {
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #000;
+    padding: 30px 10px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.leftMenuButton {
+    padding: 30px;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 15px;
+}
+
+.rightBox {
+    padding: 50px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    width: 80%;
+}
+
+.rightBoxItem {
+    background: #fff;
+    height: 300px;
+    width: 100%;
+}
+
+.rightBoxInfo {
+    padding: 10px;
+    height: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #000;
+    font-size: 12px;
+}
+
+.rightBoxImage {
+    width: 100%;
+    height: 80%;
+    object-fit: cover;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #000;
+    font-size: 30px;
+}
