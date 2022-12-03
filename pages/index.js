@@ -1,61 +1,101 @@
+import Image from 'next/image'
+import { useEffect, useState } from 'react'
 import styles from './index.module.css'
-import { useState, useEffect } from 'react';
-import { useInput } from '../module/useInput';
-import { useFetchPost } from '../module/useFetchPost';
-import { tokenSave } from '../module/tokenSave';
-import { getToken } from '../module/getToken';
 
-export default function Home() {
-  const email = useInput("");
-  const password = useInput("");
-  const [loading, setLoading] = useState(false);
-  const [loginStatus, setLoginStatus] = useState("notLoading");
-  const [loginCheck, setLoginCheck] = useState(null);
+const products = [
+  {
+    id: 1,
+    name: '컴퓨터',
+    price: 10000,
+    image: "https://cdn.pixabay.com/photo/2015/01/21/14/14/apple-606761__480.jpg"
+  },
+  {
+    id: 2,
+    name: '노트북',
+    price: 20000,
+    image: "https://cdn.pixabay.com/photo/2015/02/02/11/09/office-620822__480.jpg"
+  },
+  {
+    id: 3,
+    name: '마우스',
+    price: 30000,
+    image: "https://cdn.pixabay.com/photo/2013/07/12/17/41/computer-mouse-152249__480.png"
+  },
+  {
+    id: 4,
+    name: '키보드',
+    price: 40000,
+    image: "https://cdn.pixabay.com/photo/2015/08/13/01/00/keyboard-886462__480.jpg"
+  },
+  {
+    id: 5,
+    name: '모니터',
+    price: 50000,
+    image: "https://cdn.pixabay.com/photo/2013/07/12/15/04/monitor-149362__480.png"
+  },
+  {
+    id: 6,
+    name: '신문',
+    price: 60000,
+    image: "https://cdn.pixabay.com/photo/2014/05/21/22/28/old-newspaper-350376__480.jpg"
+  },
+  {
+    id: 7,
+    name: '넷플릭스',
+    price: 70000,
+    image: "https://cdn.pixabay.com/photo/2020/09/14/17/45/tv-5571609__480.jpg",
+  },
+  {
+    id: 8,
+    name: '유튜브',
+    price: 70000,
+    image: "https://cdn.pixabay.com/photo/2018/03/22/10/54/youtube-icon-3249999__480.jpg",
+  },
+  {
+    id: 9,
+    name: '쇼피',
+    price: 70000,
+    image: "https://cdn.pixabay.com/photo/2015/09/16/08/53/shop-942398__480.jpg",
+  },
+  {
+    id: 10,
+    name: '알람',
+    price: 70000,
+    image: "https://cdn.pixabay.com/photo/2015/01/06/14/28/alarm-clock-590383__480.jpg",
+  },
+]
 
-  const buttonBg = {
-    loading: "gray",
-    notLoading: "#2ecc71",
-    fail: "red",
-  };
 
-  const login = async () => {
-    setLoading(true);
-    setLoginStatus("loading");
-    const url = 'http://54.180.145.47:8000/user/login'
-    const req = { email: email.value, password: password.value, is_seller: 1 };
-    const data = await useFetchPost(url, req);
-    const { access, refresh } = data;
-    if (access && refresh) {
-      tokenSave(access, refresh);
-      setLoginStatus("notLoading");
-      setLoginCheck(true);
-    } else {
-      setLoginStatus("fail");
-      setTimeout(() => {
-        setLoginStatus("notLoading");
-      }, 1000);
-    }
-    setLoading(false);
-  }
+export default function MainPage() {
+  const [loginCheck, setLoginCheck] = useState(false);
 
   useEffect(() => {
-    setLoginCheck(getToken());
-
-  }, []);
+    loginCheck ? console.log("로그인") : window.location.assign("/login");
+  }, [loginCheck]);
 
   return (
-    loginCheck ? window.location.assign("/mainpage") :
+    loginCheck && (
       <div className={styles.container}>
-        <div className={styles.loginBox}>
-          <div className={styles.loginBoxTitle}>모아구독 판매자 센터</div>
-          <input type='text' placeholder='이메일' {...email} />
-          <input type="password" placeholder='비밀번호' {...password} />
-          <button disabled={loading} style={{ background: buttonBg[loginStatus] }} onClick={login} className={styles.loginButton}>
-            {loginStatus === "loading" && "로딩중..."}
-            {loginStatus === "notLoading" && "로그인"}
-            {loginStatus === "fail" && "로그인 실패"}
-          </button>
+        <div className={styles.leftBox}>
+          <div className={styles.leftBoxTitle}>모아구독 판매자 센터</div>
+          <button className={styles.leftMenuButton}>상품조회</button>
+          <button className={styles.leftMenuButton}>상품등록</button>
+          <button className={styles.leftMenuButton}>통계관리</button>
+        </div>
+        <div className={styles.rightBox}>
+          {products.map((product) => (
+            <div key={product.id} className={styles.rightBoxItem}>
+              <Image src={product.image}
+                alt={product.name}
+                width={300}
+                height={300}
+                className={styles.rightBoxImage}
+              />
+              <div className={styles.rightBoxInfo}>{product.name}</div>
+            </div>
+          ))}
         </div>
       </div>
-  );
+    )
+  )
 }
