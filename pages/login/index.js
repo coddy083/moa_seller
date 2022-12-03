@@ -3,12 +3,15 @@ import { useState, useEffect } from 'react';
 import { useInput } from '../../module/useInput';
 import { useFetchPost } from '../../module/useFetchPost';
 import { tokenSave } from '../../module/tokenSave';
+import { getToken } from '../../module/getToken';
 
 export default function Home() {
   const email = useInput("");
   const password = useInput("");
   const [loading, setLoading] = useState(false);
+  const [loginCheck, setLoginCheck] = useState(false);
   const [loginStatus, setLoginStatus] = useState("notLoading");
+
 
   const buttonBg = {
     loading: "gray",
@@ -41,6 +44,14 @@ export default function Home() {
     setLoading(false);
   }
 
+  useEffect(() => {
+    setLoginCheck(getToken());
+    loginCheck ? window.location.href = "/products" : null;
+  }, []);
+
+  useEffect(() => {
+    loginCheck ? window.location.href = "/" : null;
+  }, [loginCheck]);
 
   return (
     <div className={styles.container}>

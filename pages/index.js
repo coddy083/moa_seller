@@ -1,6 +1,9 @@
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
+import { getToken } from '../module/getToken'
 import styles from './index.module.css'
+import Link from "next/link";
+import Router, { useRouter } from "next/router";
 
 const products = [
   {
@@ -67,35 +70,50 @@ const products = [
 
 
 export default function MainPage() {
-  const [loginCheck, setLoginCheck] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    loginCheck ? console.log("로그인") : window.location.assign("/login");
-  }, [loginCheck]);
+    const check = getToken()
+    if (check) {
+      setLoading(false)
+    } else {
+      Router.push('/login')
+    }
+  }, [])
 
-  return (
-    loginCheck && (
-      <div className={styles.container}>
-        <div className={styles.leftBox}>
-          <div className={styles.leftBoxTitle}>모아구독 판매자 센터</div>
-          <button className={styles.leftMenuButton}>상품조회</button>
-          <button className={styles.leftMenuButton}>상품등록</button>
-          <button className={styles.leftMenuButton}>통계관리</button>
-        </div>
-        <div className={styles.rightBox}>
-          {products.map((product) => (
-            <div key={product.id} className={styles.rightBoxItem}>
-              <Image src={product.image}
-                alt={product.name}
-                width={300}
-                height={300}
-                className={styles.rightBoxImage}
-              />
-              <div className={styles.rightBoxInfo}>{product.name}</div>
-            </div>
-          ))}
-        </div>
+  const Loading = () => {
+    return (
+      <div className={styles.loading}>
+        <div className={styles.loading__text}>Loading...</div>
       </div>
     )
+  }
+
+  return (
+    loading ? Loading() :
+      (
+        <div className={styles.container}>
+          <div className={styles.leftBox}>
+            <div className={styles.leftBoxTitle}>모아구독 판매자 센터</div>
+            <button className={styles.leftMenuButton}>상품조회</button>
+            <button className={styles.leftMenuButton}>상품등록</button>
+            <button className={styles.leftMenuButton}>통계관리</button>
+          </div>
+          <div className={styles.rightBox}>
+            {products.map((product) => (
+              <div key={product.id} className={styles.rightBoxItem}>
+                <Image src={product.image}
+                  alt={product.name}
+                  width={300}
+                  height={300}
+                  className={styles.rightBoxImage}
+                  loading="lazy"
+                />
+                <div className={styles.rightBoxInfo}>{product.name}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )
   )
 }

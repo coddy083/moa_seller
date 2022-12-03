@@ -1,7 +1,6 @@
 .container {
     width: 100vw;
     display: flex;
-    background: #000;
 }
 
 .leftBox {
@@ -17,22 +16,26 @@
 }
 
 .leftBoxTitle {
-    background: #fff;
+    background: rgb(255, 202, 89);
+    border-radius: 20px 20px 0 0;
     display: flex;
     justify-content: center;
     align-items: center;
     color: #000;
     padding: 30px 10px;
-    font-size: 12px;
+    font-size: 15px;
     font-weight: bold;
 }
 
 .leftMenuButton {
     padding: 30px;
-    color: #fff;
     cursor: pointer;
-    transition: 0.3s;
+    transition: 0.5s;
     font-size: 15px;
+    border: none;
+}
+.leftMenuButton:hover {
+    background: rgb(255, 202, 89);
 }
 
 .rightBox {
@@ -70,4 +73,14 @@
     align-items: center;
     color: #000;
     font-size: 30px;
+}
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-size: 30px;
+}
+.loading__text {
+    margin-left: 10px;
 }
