@@ -12,7 +12,6 @@ export default function Home() {
   const [loginCheck, setLoginCheck] = useState(false);
   const [loginStatus, setLoginStatus] = useState("notLoading");
 
-
   const buttonBg = {
     loading: "gray",
     notLoading: "#2ecc71",
@@ -35,13 +34,14 @@ export default function Home() {
       tokenSave(access, refresh);
       setLoginStatus("notLoading");
       setLoginCheck(true);
+      setLoading(false);
     } else {
       setLoginStatus("fail");
       setTimeout(() => {
         setLoginStatus("notLoading");
+        setLoading(false);
       }, 1000);
     }
-    setLoading(false);
   }
 
   useEffect(() => {

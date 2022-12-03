@@ -42,7 +42,7 @@
     padding: 50px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
+    gap: 20px;
     width: 80%;
 }
 
@@ -53,19 +53,22 @@
 }
 
 .rightBoxInfo {
-    padding: 10px;
-    height: 20%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-evenly;
+    padding: 10px;
+    height: 40%;
     align-items: center;
     color: #000;
     font-size: 12px;
 }
+/* .rightBoxInfo div{
+    margin: 5px 0;
+} */
 
 .rightBoxImage {
     width: 100%;
-    height: 80%;
+    height: 60%;
     object-fit: cover;
     background: #fff;
     display: flex;
