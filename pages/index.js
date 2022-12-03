@@ -33,9 +33,9 @@ const RightBox = () => {
             loading="lazy"
           />
           <div className={styles.rightBoxInfo}>
-            <div>{product.product_group_name}</div>
-            <div>{product.product_name}</div>
-            <div>{product.price.toLocaleString()}</div>
+            <div style={{ fontSize: 20 }}>{product.product_group_name}</div>
+            <div style={{ fontSize: 14 }}>{product.product_name}</div>
+            <div style={{color: "red"}}>{product.price.toLocaleString()}</div>
             <div>조회수 {product.views}</div>
           </div>
         </div>
